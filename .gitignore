@@ -35,3 +35,7 @@ temp/
 
 # OS 파일
 Thumbs.db
+
+# 개인 설정 파일
+settings.local.json
+CLAUDE.local.md
