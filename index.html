@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="아나킨 - 25년 경력 데이터 전문가 | DA, DBA, 데이터 모델러, 데이터 사이언스" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta property="og:title" content="아나킨 | 데이터 전문가 포트폴리오" />
+  <meta property="og:description" content="25년 경력의 데이터 전문가 | DB 설계, 모델링, Kafka 스트리밍, 머신러닝" />
+  <meta property="og:type" content="website" />
+  <title>아나킨 | 데이터 전문가 포트폴리오</title>
+
+  <!-- Tailwind CSS v4 Browser CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Google Fonts: Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style type="text/tailwindcss">
+    @layer base {
+      html {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+      body {
+        background-color: #0f172a;
+        color: #f1f5f9;
+      }
+      ::selection {
+        background-color: #8b5cf6;
+        color: #fff;
+      }
+    }
+
+    @layer components {
+      .section-title {
+        @apply text-3xl md:text-4xl font-bold text-slate-100 mb-2;
+      }
+      .section-subtitle {
+        @apply text-purple-400 text-sm font-semibold uppercase tracking-widest mb-4;
+      }
+      .card {
+        @apply bg-slate-800/60 border border-slate-700/50 rounded-2xl p-6
+               backdrop-blur-sm hover:border-purple-500/40 hover:bg-slate-800/80
+               transition-all duration-300;
+      }
+      .btn-primary {
+        @apply bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700
+               text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200
+               hover:shadow-lg hover:shadow-purple-500/25 active:scale-95;
+      }
+      .btn-outline {
+        @apply border border-purple-500 text-purple-400 hover:bg-purple-500/10
+               font-semibold px-6 py-3 rounded-lg transition-all duration-200
+               active:scale-95;
+      }
+      .nav-link {
+        @apply text-slate-400 hover:text-purple-400 transition-colors duration-200
+               text-sm font-medium relative;
+      }
+      .nav-link.active {
+        @apply text-purple-400 border-b-2 border-purple-400 pb-1;
+      }
+      .skill-bar {
+        @apply h-2 bg-slate-700 rounded-full overflow-hidden;
+      }
+      .skill-bar-fill {
+        @apply h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full
+               transition-all duration-1000 ease-out;
+      }
+      .tag {
+        @apply text-xs font-medium bg-purple-500/10 text-purple-400
+               border border-purple-500/20 px-3 py-1 rounded-full;
+      }
+      .timeline-item {
+        @apply relative pl-8 pb-10 border-l border-slate-700;
+      }
+      .timeline-dot {
+        @apply absolute -left-2 top-1 w-4 h-4 rounded-full bg-purple-500
+               border-2 border-slate-950 shadow-lg shadow-purple-500/30;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============== NAVIGATION ============== -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50
+                        bg-slate-900/80 backdrop-blur-md border-b border-slate-800/50
+                        transition-all duration-300">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="#hero" class="text-lg font-bold text-white hover:text-purple-400 transition-colors">
+        아나킨<span class="text-purple-400">.</span>
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8">
+        <li><a href="#about" class="nav-link">소개</a></li>
+        <li><a href="#skills" class="nav-link">기술스택</a></li>
+        <li><a href="#experience" class="nav-link">경력</a></li>
+        <li><a href="#projects" class="nav-link">프로젝트</a></li>
+        <li><a href="#contact" class="nav-link">연락처</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <a href="mailto:sentrino@naver.com" class="hidden md:inline-flex btn-primary text-sm py-2 px-4">
+          문의하기
+        </a>
+        <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-800 transition-colors"
+                aria-label="메뉴 열기" aria-expanded="false">
+          <span class="hamburger-line w-5 h-0.5 bg-slate-300 transition-all duration-300"></span>
+          <span class="hamburger-line w-5 h-0.5 bg-slate-300 transition-all duration-300"></span>
+          <span class="hamburger-line w-5 h-0.5 bg-slate-300 transition-all duration-300"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden bg-slate-900 border-t border-slate-800">
+    <ul class="px-4 py-4 flex flex-col gap-3">
+      <li><a href="#about" class="nav-link block py-2">소개</a></li>
+      <li><a href="#skills" class="nav-link block py-2">기술스택</a></li>
+      <li><a href="#experience" class="nav-link block py-2">경력</a></li>
+      <li><a href="#projects" class="nav-link block py-2">프로젝트</a></li>
+      <li><a href="#contact" class="nav-link block py-2">연락처</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section id="hero" class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-64 h-64 bg-purple-600/5 rounded-full blur-3xl"></div>
+    <div class="absolute inset-0 opacity-[0.03]"
+         style="background-image: linear-gradient(#3b82f6 1px, transparent 1px),
+                linear-gradient(to right, #3b82f6 1px, transparent 1px);
+                background-size: 60px 60px;"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <div class="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20
+                text-purple-400 text-sm px-4 py-2 rounded-full mb-8 opacity-0"
+         data-animate="fade-up">
+      <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+      현재 새로운 프로젝트를 찾고 있습니다
+    </div>
+
+    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-100 mb-4 opacity-0"
+        data-animate="fade-up" data-delay="100">
+      아나킨
+      <span class="block text-transparent bg-clip-text
+                   bg-gradient-to-r from-blue-400 to-purple-600 mt-1 text-4xl sm:text-5xl">
+        Anakin Won
+      </span>
+    </h1>
+
+    <p class="text-xl sm:text-2xl text-slate-400 font-medium mb-2 opacity-0"
+       data-animate="fade-up" data-delay="200">
+      데이터 전문가 · DA / DBA / 데이터 모델러 / 데이터 사이언스
+    </p>
+    <p class="text-purple-400 font-semibold text-lg mb-8 opacity-0"
+       data-animate="fade-up" data-delay="300">
+      25년 경력 | 기술등급 특급
+    </p>
+
+    <p class="max-w-2xl mx-auto text-slate-400 text-base sm:text-lg leading-relaxed mb-10 opacity-0"
+       data-animate="fade-up" data-delay="400">
+      데이터베이스 설계부터 머신러닝까지, 데이터의 모든 여정을 함께합니다.
+      Oracle, PostgreSQL, Kafka 기반의 대용량 데이터 처리와 비즈니스 인사이트 도출을 전문으로 합니다.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0"
+         data-animate="fade-up" data-delay="500">
+      <a href="#contact" class="btn-primary">연락하기</a>
+      <a href="#projects" class="btn-outline">프로젝트 보기</a>
+      <a href="https://github.com/anakinwon" target="_blank" rel="noopener" class="btn-outline flex items-center gap-2 justify-center">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.545 2.91 1.182.092-.916.35-1.546.636-1.903-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.270.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.194 22 16.441 22 12.017 22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-600 animate-bounce" aria-hidden="true">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ABOUT ============== -->
+<section id="about" class="py-24 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16" data-animate="fade-up">
+      <p class="section-subtitle">About Me</p>
+      <h2 class="section-title">25년 경력의 데이터 전문가</h2>
+      <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6" data-animate="fade-right">
+        <p class="text-slate-300 text-lg leading-relaxed">
+          데이터베이스 관리부터 데이터 분석, 머신러닝까지 폭넓은 데이터 전문 역량을 보유하고 있습니다.
+          SK, KT, CJ 등 국내 주요 기업의 대규모 데이터 인프라 설계와 구축 경험이 있습니다.
+        </p>
+        <p class="text-slate-400 leading-relaxed">
+          Kafka 기반의 실시간 스트리밍 데이터 처리부터 머신러닝을 통한 비즈니스 인사이트 도출까지,
+          데이터의 전체 라이프사이클에서 컨설팅과 기술 지원을 제공합니다.
+        </p>
+
+        <div class="grid grid-cols-3 gap-4 pt-4">
+          <div class="text-center card py-4">
+            <div class="text-3xl font-black text-purple-400">25+</div>
+            <div class="text-xs text-slate-500 mt-1">년 경력</div>
+          </div>
+          <div class="text-center card py-4">
+            <div class="text-3xl font-black text-purple-400">50+</div>
+            <div class="text-xs text-slate-500 mt-1">프로젝트</div>
+          </div>
+          <div class="text-center card py-4">
+            <div class="text-3xl font-black text-purple-400">4+</div>
+            <div class="text-xs text-slate-500 mt-1">전문 영역</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4" data-animate="fade-left">
+        <div class="card flex items-start gap-4">
+          <div class="w-10 h-10 bg-purple-500/15 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-100 mb-1">데이터베이스 설계 & 관리</h3>
+            <p class="text-slate-400 text-sm">Oracle, PostgreSQL, MS-SQL, MySQL 전반의 DBA 역량과 ER-Win, DA# 설계 도구 전문가</p>
+          </div>
+        </div>
+
+        <div class="card flex items-start gap-4">
+          <div class="w-10 h-10 bg-purple-500/15 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-100 mb-1">데이터 분석 & 인사이트</h3>
+            <p class="text-slate-400 text-sm">SQL 데이터 분석, 데이터 표준화 및 모델링을 통한 비즈니스 인사이트 도출</p>
+          </div>
+        </div>
+
+        <div class="card flex items-start gap-4">
+          <div class="w-10 h-10 bg-purple-500/15 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-100 mb-1">머신러닝 & 데이터 사이언스</h3>
+            <p class="text-slate-400 text-sm">Python 기반 ML 모델링 및 예측 분석, 데이터 사이언스 실무 경험</p>
+          </div>
+        </div>
+
+        <div class="card flex items-start gap-4">
+          <div class="w-10 h-10 bg-purple-500/15 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-slate-100 mb-1">실시간 데이터 스트리밍</h3>
+            <p class="text-slate-400 text-sm">Apache Kafka 기반 대용량 실시간 데이터 파이프라인, CDC(Change Data Capture) 구축</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SKILLS ============== -->
+<section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16" data-animate="fade-up">
+      <p class="section-subtitle">Tech Stack</p>
+      <h2 class="section-title">기술 스택</h2>
+      <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="card" data-animate="fade-up">
+        <h3 class="text-slate-100 font-semibold mb-6 flex items-center gap-2">
+          <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+          데이터베이스
+        </h3>
+        <div class="space-y-5">
+          <div class="skill-item" data-skill="95">
+            <div class="flex justify-between mb-2">
+              <span class="text-slate-300 text-sm font-medium">Oracle</span>
+              <span class="text-purple-400 text-sm">95%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill w-0" style="--target-width: 95%"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="90">
+            <div class="flex justify-between mb-2">
+              <span class="text-slate-300 text-sm font-medium">PostgreSQL</span>
+              <span class="text-purple-400 text-sm">90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill w-0" style="--target-width: 90%"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="85">
+            <div class="flex justify-between mb-2">
+              <span class="text-slate-300 text-sm font-medium">MS-SQL Server</span>
+              <span class="text-purple-400 text-sm">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill w-0" style="--target-width: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="80">
+            <div class="flex justify-between mb-2">
+              <span class="text-slate-300 text-sm font-medium">MySQL</span>
+              <span class="text-purple-400 text-sm">80%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill w-0" style="--target-width: 80%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-animate="fade-up" data-delay="100">
+        <h3 class="text-slate-100 font-semibold mb-6 flex items-center gap-2">
+          <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+          데이터 분석 & 스트리밍
+        </h3>
+        <div class="space-y-5">
+          <div class="skill-item" data-skill="95">
+            <div class="flex justify-between mb-2">
+              <span class="text-slate-300 text-sm font-medium">데이터 모델링</span>
+              <span class="text-purple-400 text-sm">95%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill w-0" style="--target-width: 95%"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="90">
+            <div class="flex justify-between mb-2">
+              <span class="text-slate-300 text-sm font-medium">SQL 분석</span>
+              <span class="text-purple-400 text-sm">90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill w-0" style="--target-width: 90%"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="85">
+            <div class="flex justify-between mb-2">
+              <span class="text-slate-300 text-sm font-medium">Apache Kafka</span>
+              <span class="text-purple-400 text-sm">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill w-0" style="--target-width: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="75">
+            <div class="flex justify-between mb-2">
+              <span class="text-slate-300 text-sm font-medium">머신러닝</span>
+              <span class="text-purple-400 text-sm">75%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill w-0" style="--target-width: 75%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card text-center" data-animate="fade-up">
+      <h3 class="text-slate-100 font-semibold mb-4">추가 기술</h3>
+      <div class="flex flex-wrap gap-2 justify-center">
+        <span class="tag">DA#</span>
+        <span class="tag">ER-Win</span>
+        <span class="tag">Python</span>
+        <span class="tag">Java</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">JSP</span>
+        <span class="tag">C/Pro*C</span>
+        <span class="tag">KSQLDB</span>
+        <span class="tag">ETL</span>
+        <span class="tag">MSA</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Jenkins</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Linux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== EXPERIENCE ============== -->
+<section id="experience" class="py-24 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16" data-animate="fade-up">
+      <p class="section-subtitle">Experience</p>
+      <h2 class="section-title">경력 사항</h2>
+      <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-4"></div>
+    </div>
+
+    <div class="relative" data-animate="fade-up">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="card ml-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-lg font-bold text-slate-100">이사</h3>
+              <p class="text-purple-400 font-medium">아이티센클로잇</p>
+            </div>
+            <span class="text-sm text-slate-500 bg-slate-700/50 px-3 py-1 rounded-full whitespace-nowrap">
+              2025.08 – 2025.12
+            </span>
+          </div>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              국방전산정보원 네이티브 클라우드 전환 컨설팅
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              차세대 MSA 모델 설계
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            <span class="tag">DA#</span>
+            <span class="tag">Oracle</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="card ml-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-lg font-bold text-slate-100">이사</h3>
+              <p class="text-purple-400 font-medium">위즈덤마인드</p>
+            </div>
+            <span class="text-sm text-slate-500 bg-slate-700/50 px-3 py-1 rounded-full whitespace-nowrap">
+              2023.10 – 2025.07
+            </span>
+          </div>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              경동나비엔 차세대 구축 프로젝트
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              데이터 표준화, DB 모델링, Kafka CDC 구축
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            <span class="tag">DA#</span>
+            <span class="tag">MS-SQL</span>
+            <span class="tag">Kafka</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="card ml-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-lg font-bold text-slate-100">수석 PM, DA</h3>
+              <p class="text-purple-400 font-medium">위즈코어</p>
+            </div>
+            <span class="text-sm text-slate-500 bg-slate-700/50 px-3 py-1 rounded-full whitespace-nowrap">
+              2023.03 – 2023.09
+            </span>
+          </div>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              정부과제 MES 솔루션 구축 및 관리
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              프로젝트 관리 및 Dashboard 개발
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            <span class="tag">MS-SQL</span>
+            <span class="tag">Spring Boot</span>
+            <span class="tag">JPA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="card ml-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-lg font-bold text-slate-100">수석 DA, 모델러</h3>
+              <p class="text-purple-400 font-medium">디투엘</p>
+            </div>
+            <span class="text-sm text-slate-500 bg-slate-700/50 px-3 py-1 rounded-full whitespace-nowrap">
+              2022.07 – 2022.12
+            </span>
+          </div>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              두산커텍트 글로벌 시스템 현대화
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              Java Framework 기반 운영 및 고도화
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            <span class="tag">Oracle</span>
+            <span class="tag">Java</span>
+            <span class="tag">Spring Boot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="card ml-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-lg font-bold text-slate-100">차장, DBA</h3>
+              <p class="text-purple-400 font-medium">㈜아워콤</p>
+            </div>
+            <span class="text-sm text-slate-500 bg-slate-700/50 px-3 py-1 rounded-full whitespace-nowrap">
+              2019.05 – 2022.04
+            </span>
+          </div>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              SK-Hynix 기준정보 및 시스템 구축
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              DB 설계, DBA, 개발 PL 역할 수행
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            <span class="tag">Oracle</span>
+            <span class="tag">C#</span>
+            <span class="tag">JSP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="card ml-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-lg font-bold text-slate-100">차장, 개발</h3>
+              <p class="text-purple-400 font-medium">아큐라소프트</p>
+            </div>
+            <span class="text-sm text-slate-500 bg-slate-700/50 px-3 py-1 rounded-full whitespace-nowrap">
+              2011.06 – 2015.12
+            </span>
+          </div>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              대규모 통신사 프로젝트 개발
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              DB 모델링 및 최적화
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            <span class="tag">Oracle</span>
+            <span class="tag">Java</span>
+            <span class="tag">JSP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item [&:last-child]:border-transparent">
+        <div class="timeline-dot"></div>
+        <div class="card ml-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-lg font-bold text-slate-100">과장, 개발 PL</h3>
+              <p class="text-purple-400 font-medium">㈜디투엘</p>
+            </div>
+            <span class="text-sm text-slate-500 bg-slate-700/50 px-3 py-1 rounded-full whitespace-nowrap">
+              2008.06 – 2010.10
+            </span>
+          </div>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              SKT 통신 시스템 개발 및 리딩
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400 mt-0.5">▸</span>
+              데이터 모델 설계 및 최적화
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            <span class="tag">Oracle</span>
+            <span class="tag">C/Pro*C</span>
+            <span class="tag">Unix</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROJECTS ============== -->
+<section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16" data-animate="fade-up">
+      <p class="section-subtitle">Projects</p>
+      <h2 class="section-title">주요 프로젝트</h2>
+      <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" data-animate="fade-up">
+      <article class="card flex flex-col group">
+        <div class="w-full h-1 bg-gradient-to-r from-blue-500 to-purple-600 -mt-6 -mx-6 mb-6" style="width: calc(100% + 3rem)"></div>
+        <div class="flex items-start justify-between mb-3">
+          <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7a2 2 0 012-2h4l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+          </svg>
+        </div>
+        <h3 class="font-bold text-slate-100 mb-2 group-hover:text-purple-400 transition-colors">
+          NIA 국방전산정보원 ISP
+        </h3>
+        <p class="text-slate-400 text-sm leading-relaxed flex-grow mb-4">
+          국방전산정보원 네이티브 클라우드 전환 컨설팅 및 MSA 모델 설계
+        </p>
+        <div class="flex flex-col gap-1">
+          <span class="text-xs text-slate-500">2025.08 ~ 2025.12 | 아이티센클로잇</span>
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            <span class="tag">DA#</span>
+            <span class="tag">Oracle</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card flex flex-col group">
+        <div class="w-full h-1 bg-gradient-to-r from-blue-500 to-purple-600 -mt-6 -mx-6 mb-6" style="width: calc(100% + 3rem)"></div>
+        <div class="flex items-start justify-between mb-3">
+          <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7a2 2 0 012-2h4l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+          </svg>
+        </div>
+        <h3 class="font-bold text-slate-100 mb-2 group-hover:text-purple-400 transition-colors">
+          경동나비엔 차세대 시스템
+        </h3>
+        <p class="text-slate-400 text-sm leading-relaxed flex-grow mb-4">
+          차세대 시스템 구축 프로젝트, 데이터 표준화 및 Kafka CDC 구현
+        </p>
+        <div class="flex flex-col gap-1">
+          <span class="text-xs text-slate-500">2024.10 ~ 2025.07 | 위즈덤마인드</span>
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            <span class="tag">DA#</span>
+            <span class="tag">MS-SQL</span>
+            <span class="tag">Kafka</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card flex flex-col group">
+        <div class="w-full h-1 bg-gradient-to-r from-blue-500 to-purple-600 -mt-6 -mx-6 mb-6" style="width: calc(100% + 3rem)"></div>
+        <div class="flex items-start justify-between mb-3">
+          <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7a2 2 0 012-2h4l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+          </svg>
+        </div>
+        <h3 class="font-bold text-slate-100 mb-2 group-hover:text-purple-400 transition-colors">
+          SK렌터카 차세대 구축
+        </h3>
+        <p class="text-slate-400 text-sm leading-relaxed flex-grow mb-4">
+          PHASE3 프로젝트, 데이터 모델링 및 KAFKA CDC 구축
+        </p>
+        <div class="flex flex-col gap-1">
+          <span class="text-xs text-slate-500">2024.01 ~ 2024.08 | 위즈덤마인드</span>
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            <span class="tag">DA#</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Kafka</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="text-center mt-10" data-animate="fade-up">
+      <a href="#experience" class="btn-outline inline-flex items-center gap-2">
+        <span>더 많은 프로젝트 보기</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CONTACT ============== -->
+<section id="contact" class="py-24 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="mb-16" data-animate="fade-up">
+      <p class="section-subtitle">Contact</p>
+      <h2 class="section-title">연락하기</h2>
+      <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-4"></div>
+    </div>
+
+    <p class="text-slate-400 text-lg max-w-xl mx-auto mb-12" data-animate="fade-up">
+      데이터 프로젝트 협업, 컨설팅, 강의 등 어떤 문의든 환영합니다.
+    </p>
+
+    <div class="grid sm:grid-cols-2 gap-6 max-w-lg mx-auto mb-12" data-animate="fade-up">
+      <a href="mailto:sentrino@naver.com" class="card flex flex-col items-center gap-3 py-8 group hover:bg-purple-500/10 cursor-pointer">
+        <svg class="w-10 h-10 text-purple-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        <span class="font-semibold text-slate-100">이메일</span>
+        <span class="text-purple-400 text-sm">sentrino@naver.com</span>
+      </a>
+
+      <a href="https://github.com/anakinwon" target="_blank" rel="noopener" class="card flex flex-col items-center gap-3 py-8 group hover:bg-purple-500/10 cursor-pointer">
+        <svg class="w-10 h-10 text-purple-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.545 2.91 1.182.092-.916.35-1.546.636-1.903-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.270.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.194 22 16.441 22 12.017 22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
+        </svg>
+        <span class="font-semibold text-slate-100">GitHub</span>
+        <span class="text-purple-400 text-sm">@anakinwon</span>
+      </a>
+    </div>
+
+    <div data-animate="fade-up">
+      <a href="mailto:sentrino@naver.com" class="btn-primary text-lg px-10 py-4 inline-block">
+        지금 바로 연락하기
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="border-t border-slate-800 py-8 px-4 text-center">
+  <div class="max-w-6xl mx-auto">
+    <p class="text-slate-600 text-sm">
+      © 2025 아나킨. All rights reserved.
+    </p>
+    <p class="text-slate-700 text-xs mt-2">
+      Built with Tailwind CSS · Vanilla JavaScript
+    </p>
+  </div>
+</footer>
+
+<!-- ============== JAVASCRIPT ============== -->
+<script>
+  // --- MOBILE MENU TOGGLE ---
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburgerLines = menuBtn.querySelectorAll('.hamburger-line');
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', String(!isOpen));
+
+    if (!isOpen) {
+      hamburgerLines[0].style.transform = 'translateY(8px) rotate(45deg)';
+      hamburgerLines[1].style.opacity = '0';
+      hamburgerLines[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+    } else {
+      hamburgerLines.forEach(l => { l.style.transform = ''; l.style.opacity = ''; });
+    }
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      hamburgerLines.forEach(l => { l.style.transform = ''; l.style.opacity = ''; });
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // --- NAVBAR SCROLL EFFECT ---
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar.classList.add('bg-slate-900', 'shadow-xl', 'shadow-black/20');
+      navbar.classList.remove('bg-slate-900/80');
+    } else {
+      navbar.classList.remove('bg-slate-900', 'shadow-xl', 'shadow-black/20');
+      navbar.classList.add('bg-slate-900/80');
+    }
+  }, { passive: true });
+
+  // --- ACTIVE NAV LINK ---
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active',
+            link.getAttribute('href') === `#${entry.target.id}`);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // --- SCROLL ANIMATIONS ---
+  const animateObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const delay = el.dataset.delay || '0';
+      el.style.transitionDelay = `${delay}ms`;
+      el.classList.add('translate-y-0', 'opacity-100');
+      el.classList.remove('opacity-0', 'translate-y-6');
+      animateObserver.unobserve(el);
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-animate]').forEach(el => {
+    el.classList.add('opacity-0', 'translate-y-6', 'transition-all', 'duration-700', 'ease-out');
+    animateObserver.observe(el);
+  });
+
+  // --- HERO ENTRANCE ---
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroEls = document.querySelectorAll('#hero [data-animate]');
+    heroEls.forEach((el, i) => {
+      const delay = parseInt(el.dataset.delay || 0);
+      setTimeout(() => {
+        el.style.transform = 'translateY(0)';
+        el.style.opacity = '1';
+        el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+      }, 300 + delay);
+    });
+  });
+
+  // --- SKILL BAR ANIMATION ---
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const fills = entry.target.querySelectorAll('.skill-bar-fill');
+        fills.forEach(fill => {
+          const target = fill.style.getPropertyValue('--target-width');
+          requestAnimationFrame(() => {
+            fill.style.width = target;
+          });
+        });
+        skillObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.card').forEach(card => skillObserver.observe(card));
+
+  // --- SMOOTH SCROLL FALLBACK ---
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
