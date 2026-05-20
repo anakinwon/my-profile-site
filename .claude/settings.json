@@ -5,7 +5,13 @@
     "allow": [
       "Bash(npm run lint)",
       "Bash(npm run test *)",
-      "Bash(npm run build)"
+      "Bash(npm run build)",
+      "Bash",
+      "mcp__ide__getDiagnostics",
+      "Read(//User/anakin/**)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:context7.com)",
+      "mcp__context7"
     ],
     "deny": [
       "Bash(rm -rf *)",
@@ -25,5 +31,9 @@
     "padding": 2
   },
   "plansDirectory": ".claude/plans",
-  "outputStyle": "explanatory"
+  "outputStyle": "explanatory",
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "context7"
+  ]
 }
